@@ -1,3 +1,9 @@
+# Define the event that should trigger this workflow
+on:
+  push:
+    branches:
+      - main
+
 # Steps represent a sequence of tasks that will be executed as part of the job
 steps:
   # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -7,4 +13,3 @@ steps:
     run: |
       npm install remark-cli remark-preset-lint-consistent
       npx remark . --use remark-preset-lint-consistent --frail
-
