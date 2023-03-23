@@ -4,12 +4,21 @@ on:
     branches:
       - main
 
-# Steps represent a sequence of tasks that will be executed as part of the job
-steps:
-  # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-  - uses: actions/checkout@v3
+# Define the jobs that should run as part of this workflow
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
 
-  - name: Run markdown lint
-    run: |
-      npm install remark-cli remark-preset-lint-consistent
-      npx remark . --use remark-preset-lint-consistent --frail
+      - name: Run markdown lint
+        run: |
+          npm install remark-cli remark-preset-lint-consistent
+          npx remark . --use remark-preset-lint-consistent --frail
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: remark-lint-report
+          path: public/
+
